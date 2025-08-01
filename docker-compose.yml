@@ -12,7 +12,25 @@ services:
       - ./data/portainer:/data
     networks:
       - homelab
-
+  
+  traefik:
+    image: traefik:v3.0
+    container_name: traefik
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./configs/traefik:/etc/traefik
+      - ./data/traefik:/data
+    environment:
+      - TRAEFIK_API_DASHBOARD=true
+      - TRAEFIK_API_INSECURE=true
+    networks:
+      - homelab
+  
 networks:
   homelab:
     driver: bridge
