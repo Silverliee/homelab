@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff99b9e8-2ebe-4f64-ba0e-2cd1f377d5ff" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/configs/prometheus/prometheus.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +16,10 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///home/mtraore/Homelab/configs/grafana/dashboards/raspberry-pi.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/mtraore/Homelab/configs/grafana/dashboards/raspberry-pi.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -65,7 +71,7 @@
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="Problems" order="1" />
       <window_info anchor="bottom" id="Problems View" order="2" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="3" visible="true" weight="0.50634634" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="3" visible="true" weight="0.29419762" />
       <window_info anchor="bottom" id="Services" order="4" />
       <window_info anchor="right" id="RoslynVisualizer" />
       <window_info anchor="right" id="Endpoints" />
@@ -94,7 +100,7 @@
       <workItem from="1753750613706" duration="3587000" />
       <workItem from="1753754553179" duration="1150000" />
       <workItem from="1754047227582" duration="100000" />
-      <workItem from="1754047351475" duration="1457000" />
+      <workItem from="1754047351475" duration="5414000" />
     </task>
     <task id="LOCAL-00001" summary="add git ignore">
       <option name="closed" value="true" />
