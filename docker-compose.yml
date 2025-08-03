@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # === Docker Manager ===
   portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer
@@ -12,7 +13,7 @@ services:
       - ./data/portainer:/data
     networks:
       - homelab
-  
+  # === NETWORK STACK ===
   traefik:
     image: traefik:v3.0
     container_name: traefik
@@ -31,6 +32,17 @@ services:
     networks:
       - homelab
   
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    dns:
+      - 8.8.8.8      # Google DNS primaire
+    ports:
+      - "8191:8191"
+    restart: unless-stopped
+    networks:
+      - homelab
+  # === METRIC STACK ===
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -90,7 +102,7 @@ services:
     container_name: cadvisor
     restart: unless-stopped
     ports:
-      - "8081:8080"
+      - "8081:8081"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
@@ -102,7 +114,97 @@ services:
       - /dev/kmsg
     networks:
       - homelab
-        
+  # === MEDIA STACK ===
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    ports:
+      - "8096:8096"
+    volumes:
+      - ./data/jellyfin/config:/config
+      - ./data/jellyfin/cache:/cache
+      - ./media/movies:/media/movies:ro
+      - ./media/tv:/media/tv:ro
+      - ./media/music:/media/music:ro
+    networks:
+      - homelab
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    dns:
+      - 8.8.8.8      # Google DNS primaire
+    restart: unless-stopped
+    ports:
+      - "8989:8989"
+    volumes:
+      - ./data/sonarr:/config
+      - ./media/tv:/tv
+      - ./downloads:/downloads
+    networks:
+      - homelab
+
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    dns:
+      - 8.8.8.8      # Google DNS primaire
+    restart: unless-stopped
+    ports:
+      - "7878:7878"
+    volumes:
+      - ./data/radarr:/config
+      - ./media/movies:/movies
+      - ./downloads:/downloads
+    networks:
+      - homelab
+
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    dns:
+      - 8.8.8.8      # Google DNS primaire
+    restart: unless-stopped
+    ports:
+      - "9696:9696"
+    volumes:
+      - ./data/prowlarr:/config
+    networks:
+      - homelab
+
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    dns:
+      - 8.8.8.8      # Google DNS primaire
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+      - "6881:6881"
+      - "6881:6881/udp"
+    volumes:
+      - ./data/qbittorrent:/config
+      - ./downloads:/downloads
+    environment:
+      - WEBUI_PORT=8082
+    networks:
+      - homelab
+
+  nzbget:
+    image: linuxserver/nzbget:latest
+    container_name: nzbget
+    dns:
+      - 8.8.8.8      # Google DNS primaire
+    restart: unless-stopped
+    ports:
+      - "6789:6789"
+    volumes:
+      - ./data/nzbget:/config
+      - ./downloads:/downloads
+    networks:
+      - homelab
+      
 networks:
   homelab:
     driver: bridge
