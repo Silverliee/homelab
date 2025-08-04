@@ -124,9 +124,12 @@ services:
     volumes:
       - ./data/jellyfin/config:/config
       - ./data/jellyfin/cache:/cache
-      - ./media/movies:/media/movies:ro
-      - ./media/tv:/media/tv:ro
-      - ./media/music:/media/music:ro
+      - ./storage/media/movies:/media/movies:ro
+      - ./storage/media/series:/media/series:ro
+      - ./storage/media/music:/media/music:ro
+    environment:
+      - PUID=911
+      - PGID=911
     networks:
       - homelab
 
@@ -140,8 +143,11 @@ services:
       - "8989:8989"
     volumes:
       - ./data/sonarr:/config
-      - ./media/tv:/tv
-      - ./downloads:/downloads
+      - ./storage/media/series:/series
+      - ./storage/downloads:/downloads
+    environment:
+      - PUID=911
+      - PGID=911
     networks:
       - homelab
 
@@ -155,8 +161,11 @@ services:
       - "7878:7878"
     volumes:
       - ./data/radarr:/config
-      - ./media/movies:/movies
-      - ./downloads:/downloads
+      - ./storage/media/movies:/movies
+      - ./storage/downloads:/downloads
+    environment:
+      - PUID=911
+      - PGID=911
     networks:
       - homelab
 
@@ -170,6 +179,9 @@ services:
       - "9696:9696"
     volumes:
       - ./data/prowlarr:/config
+    environment:
+      - PUID=911
+      - PGID=911
     networks:
       - homelab
 
@@ -185,9 +197,11 @@ services:
       - "6881:6881/udp"
     volumes:
       - ./data/qbittorrent:/config
-      - ./downloads:/downloads
+      - ./storage/downloads:/downloads
     environment:
       - WEBUI_PORT=8082
+      - PUID=911
+      - PGID=911
     networks:
       - homelab
 
@@ -201,7 +215,10 @@ services:
       - "6789:6789"
     volumes:
       - ./data/nzbget:/config
-      - ./downloads:/downloads
+      - ./storage/downloads:/downloads
+    environment:
+      - PUID=911
+      - PGID=911
     networks:
       - homelab
       
