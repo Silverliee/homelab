@@ -4,15 +4,18 @@ A comprehensive homelab deployed with Docker Compose, including media services, 
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Included Services](#included-services)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Service Access](#service-access)
-- [Monitoring](#monitoring)
-- [Data Management](#data-management)
-- [Troubleshooting](#troubleshooting)
+- [Security Disclaimer (READ THIS FIRST)](#️-security-disclaimer)
+- [Overview](#-overview)
+- [Included Services](#️-included-services)
+- [Prerequisites](#-prerequisites)
+- [Installation](#-installation)
+- [Configuration](#️-configuration)
+- [Service Access](#-service-access)
+- [Monitoring](#-monitoring)
+- [Data Management](#-data-management)
+- [Troubleshooting](#-troubleshooting)
+- [Getting Started Tips](#-getting-started-tips)
+- [Contributing](#-contributing)
 
 ## 🎯 Overview
 
@@ -189,17 +192,47 @@ sudo netstat -tulpn | grep :<port>
 **DNS Resolution Issues**
 Some services use Google DNS (8.8.8.8) to resolve connectivity problems.
 
-### Important Logs to Check
-- Traefik: Proxy and routing issues
-- Prometheus: Metrics collection errors
-- *arr Services: Download and indexing problems
+## ⚠️ Security Disclaimer
 
-## 🔒 Security Notes
+**IMPORTANT: This configuration is designed for LOCAL NETWORK USE ONLY.**
+
+This homelab setup is intended to run within your home network, managed by your home router, and **should NOT be exposed to the internet** without significant security modifications.
+
+### 🚨 Critical Security Warnings
+
+- **Never expose this setup directly to the internet** - Services are configured with default credentials and minimal security
+- **No built-in security hardening** - This is a development/learning environment, not production-ready
+- **Multiple attack vectors** - Services run with elevated privileges and broad network access
+
+### 🛡️ If You Must Expose Services
+
+If you need external access, you **MUST** implement proper security measures:
+
+1. **VPN Access Only**: Set up a VPN server and access your homelab through it
+2. **Individual Service Hardening**: Configure proper authentication, encryption, and access controls for each service
+3. **Firewall Rules**: Implement strict firewall rules at both the host and container level
+4. **Reverse Proxy Security**: Use Traefik or another proxy with proper SSL/TLS, authentication, and rate limiting
+5. **Regular Security Updates**: Keep all containers and the host system updated
+6. **Network Segmentation**: Isolate your homelab network from other devices
+
+### 🎯 Recommended Approach for External Access
+
+```
+Internet → VPN → Home Network → Firewall → Reverse Proxy → Services
+```
+
+**Never do this:**
+```
+Internet → Direct Port Forwarding → Services ❌
+```
+
+### 🔒 Additional Security Notes
 
 - Change default passwords in production environments
 - Consider using environment files for sensitive data
 - Implement proper firewall rules
 - Use HTTPS with proper certificates in production
+- **Know what you're doing before exposing any homelab services**
 
 ## 🚀 Getting Started Tips
 
