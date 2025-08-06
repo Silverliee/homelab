@@ -58,7 +58,7 @@ This project provides a complete homelab solution featuring:
 
 1. **Clone the project**
 ```bash
-git clone <your-repo>
+git clone git@github.com:Silverliee/homelab.git
 cd homelab
 ```
 
