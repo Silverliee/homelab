@@ -23,15 +23,12 @@ This project provides a complete homelab solution featuring:
 - **Media Management**: Jellyfin, Sonarr, Radarr, Prowlarr
 - **Downloads**: qBittorrent, NZBGet, FlareSolverr
 - **Monitoring**: Prometheus, Grafana, Node Exporter, cAdvisor
-- **Management**: Portainer, Traefik
+- **Management**: Portainer
 
 ## 🛠️ Included Services
 
 ### Container Management
 - **Portainer**: Web interface for managing Docker containers
-
-### Network & Proxy
-- **Traefik**: Reverse proxy and load balancer with dashboard
 
 ### Monitoring & Metrics
 - **Prometheus**: Metrics collection system
@@ -68,7 +65,7 @@ cd homelab
 2. **Create directory structure**
 ```bash
 # Create data directories
-mkdir -p data/{portainer,traefik,prometheus,grafana,jellyfin/{config,cache},sonarr,radarr,prowlarr,qbittorrent,nzbget}
+mkdir -p data/{portainer,prometheus,grafana,jellyfin/{config,cache},sonarr,radarr,prowlarr,qbittorrent,nzbget}
 
 # Create storage directories
 mkdir -p storage/{media/{movies,series,music},downloads}
@@ -97,7 +94,6 @@ The `configs/prometheus/prometheus.yml` file configures monitoring targets:
 - Prometheus itself (port 9090)
 - Node Exporter (port 9100)
 - cAdvisor (port 8080)
-- Traefik (port 8080)
 - Portainer (port 9000)
 
 ### Grafana Configuration
@@ -110,7 +106,6 @@ The `configs/prometheus/prometheus.yml` file configures monitoring targets:
 | Service | URL | Port | Credentials |
 |---------|-----|------|-------------|
 | Portainer | http://localhost:9000 | 9000 | Set up on first access |
-| Traefik Dashboard | http://localhost:8080 | 8080 | - |
 | Prometheus | http://localhost:9090 | 9090 | - |
 | Grafana | http://localhost:3000 | 3000 | admin/admin |
 | Jellyfin | http://localhost:8096 | 8096 | Configure on setup |
@@ -148,9 +143,8 @@ homelab/
 │   ├── media/            # Movies, series, music
 │   └── downloads/        # Temporary downloads
 └── configs/              # Configuration files
-    ├── grafana/
-    ├── prometheus/
-    └── traefik/
+    ├── grafana/   
+    └── prometheus/
 ```
 
 ### Backup Recommendations
@@ -238,7 +232,6 @@ Internet → Direct Port Forwarding → Services ❌
 
 1. **First Setup Order**:
    - Start with Portainer for container management
-   - Configure Traefik for reverse proxy
    - Set up monitoring stack (Prometheus + Grafana)
    - Configure media services as needed
 

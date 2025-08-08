@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff99b9e8-2ebe-4f64-ba0e-2cd1f377d5ff" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/grafana/dashboard-configs/dashboards.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configs/grafana/dashboard-configs/dashboards.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/grafana/dashboards/node-exporter.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/grafana/dashboards/node-exporter.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/grafana/datasources/datasources.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configs/grafana/datasources/datasources.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configs/prometheus/prometheus.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configs/prometheus/prometheus.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/traefik/traefik.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configs/traefik/traefik.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/traefik/traefik.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +31,9 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="30WfJ7KLqKIfVzk9Zv7AUVycqw8" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -64,8 +63,8 @@
       <window_info id="Commit_Guest" show_stripe_button="false" />
       <window_info id="Pull Requests" />
       <window_info id="Learn" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27807617" />
-      <window_info id="Commit" order="1" weight="0.27807617" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.38329646" />
+      <window_info id="Commit" order="1" weight="0.38329646" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="TypeScript" />
@@ -82,10 +81,11 @@
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="Problems" order="1" />
       <window_info anchor="bottom" id="Problems View" order="2" />
-      <window_info active="true" anchor="bottom" x="568" y="375" width="941" height="324" id="Terminal" order="3" visible="true" weight="0.40353262" />
+      <window_info active="true" anchor="bottom" x="568" y="375" width="941" height="324" id="Terminal" order="3" visible="true" weight="0.29837984" />
       <window_info anchor="bottom" id="Services" order="4" />
       <window_info anchor="right" id="RoslynVisualizer" />
       <window_info anchor="right" id="Endpoints" />
+      <window_info anchor="right" id="make" side_tool="true" />
       <window_info anchor="right" id="Monitoring" />
       <window_info anchor="right" id="TscnScenePreviewWindowId" />
       <window_info anchor="right" id="IL" />
