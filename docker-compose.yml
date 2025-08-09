@@ -163,8 +163,6 @@ services:
       - ./storage/downloads:/downloads
     environment:
       - WEBUI_PORT=8082
-      - PUID=911
-      - PGID=911
     networks:
       - homelab
 
@@ -179,9 +177,6 @@ services:
     volumes:
       - ./data/nzbget:/config
       - ./storage/downloads:/downloads
-    environment:
-      - PUID=911
-      - PGID=911
     networks:
       - homelab
       
