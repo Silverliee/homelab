@@ -80,24 +80,6 @@ services:
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
     networks:
       - homelab
-
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    container_name: cadvisor
-    restart: unless-stopped
-    ports:
-      - "8081:8081"
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk/:/dev/disk:ro
-    privileged: true
-    devices:
-      - /dev/kmsg
-    networks:
-      - homelab
   # === MEDIA STACK ===
   jellyfin:
     image: jellyfin/jellyfin:latest
