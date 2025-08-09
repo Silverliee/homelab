@@ -162,6 +162,8 @@ services:
       - ./data:/config
       - ./storage/downloads:/downloads
     environment:
+      - PUID=1000
+      - PGID=1000
       - WEBUI_PORT=8082
     networks:
       - homelab
