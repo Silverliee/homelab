@@ -243,8 +243,8 @@ TZ=Europe/Paris
 
 # Base paths
 DATA_PATH=./data
-STORAGE_PATH=./storage
-CONFIG_PATH=./configs
+STORAGE_PATH=../../storage
+CONFIG_PATH=../../configs
 
 # Grafana configuration
 GF_SECURITY_ADMIN_PASSWORD=admin
