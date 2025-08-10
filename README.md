@@ -1,15 +1,16 @@
 # 🏠 Homelab - Modular Docker Stack
 
-A comprehensive homelab solution with modular architecture, deployed with Docker Compose. Features automatic permissions management and multi-stack organization for optimal maintainability.
+A comprehensive homelab solution with modular architecture, deployed with Docker Compose. Features automatic permissions management, multi-stack organization, and Makefile automation for optimal maintainability.
 
 ## 📋 Table of Contents
 
 - [Security Disclaimer](#-security-disclaimer)
 - [Overview](#-overview)
 - [Architecture](#-architecture)
-- [Quick Start](#-quick-start)
-- [Included Services](#-included-services)
 - [Prerequisites](#-prerequisites)
+- [Quick Start](#-quick-start)
+- [Makefile Commands](#-makefile-commands)
+- [Included Services](#-included-services)
 - [Installation](#-installation)
 - [Stack Management](#-stack-management)
 - [Service Access](#-service-access)
@@ -32,6 +33,7 @@ This project provides a modular homelab solution featuring:
 - **🎬 Media Management**: Jellyfin with automated acquisition (Sonarr/Radarr)
 - **⬇️ Download Management**: qBittorrent + NZBGet with indexer management
 - **🌐 Reverse Proxy**: Traefik for unified access and load balancing
+- **⚡ Makefile Automation**: Simplified commands for all operations
 
 ## 🏗️ Architecture
 
@@ -68,6 +70,7 @@ The homelab is organized into **4 modular stacks**:
 
 ```
 homelab/
+├── Makefile                    # Task automation
 ├── stacks/                     # Modular stack definitions
 │   ├── infrastructure/
 │   │   └── docker-compose.yml
@@ -85,6 +88,33 @@ homelab/
 └── .env                        # Environment variables (auto-generated)
 ```
 
+## 🔧 Prerequisites
+
+- **Operating System**: Linux (Ubuntu, Debian, Raspberry Pi OS, etc.)
+- **Docker Engine**: 20.10+
+- **Docker Compose**: v2.0+
+- **Make**: GNU Make utility
+- **System Resources**: 4GB+ RAM, sufficient storage for media
+- **Permissions**: sudo access for initialization script
+
+### Installing Make
+
+**Ubuntu/Debian/Raspberry Pi OS:**
+```bash
+sudo apt update
+sudo apt install make
+```
+
+**CentOS/RHEL/Fedora:**
+```bash
+sudo dnf install make
+```
+
+**Check if already installed:**
+```bash
+make --version
+```
+
 ## 🚀 Quick Start
 
 ### 1. Clone and Initialize
@@ -92,19 +122,20 @@ homelab/
 git clone <your-repo-url>
 cd homelab
 
-# Run the initialization script (Linux only)
-chmod +x init-permissions.sh
-./init-permissions.sh
+# Initialize the homelab (creates directories, sets permissions, generates .env)
+make init
 ```
 
-### 2. Start All Services
+### 2. Start Services
 ```bash
-# Start everything at once
-docker-compose up -d
+# Start all services
+make up
 
-# Or start individual stacks
-cd stacks/infrastructure && docker-compose up -d
-cd ../monitoring && docker-compose up -d
+# Or start in recommended order
+make start-ordered
+
+# Check status
+make status
 ```
 
 ### 3. Access Services
@@ -112,44 +143,99 @@ cd ../monitoring && docker-compose up -d
 - **Grafana**: http://localhost:3000 (admin/admin)
 - **Jellyfin**: http://localhost:8096
 
+## ⚡ Makefile Commands
+
+### Daily Operations
+```bash
+make help           # Show all available commands
+make up             # Start all services
+make down           # Stop all services
+make restart        # Restart all services
+make status         # Show services status
+make logs           # Show real-time logs
+make overview       # Quick status overview
+```
+
+### Stack Management
+```bash
+# Infrastructure stack
+make infra-up
+make infra-down
+make infra-restart
+make infra-logs
+
+# Monitoring stack
+make monitoring-up
+make monitoring-down
+make monitoring-restart
+make monitoring-logs
+
+# Media stack
+make media-up
+make media-down
+make media-restart
+make media-logs
+
+# Download stack
+make download-up
+make download-down
+make download-restart
+make download-logs
+```
+
+### Maintenance
+```bash
+make update         # Update Docker images
+make cleanup        # Clean unused Docker resources
+make backup         # Backup important data
+make health         # Check services health
+make monitor        # Show resource usage
+make disk-usage     # Show disk usage
+make validate       # Validate docker-compose files
+```
+
+### Advanced Operations
+```bash
+make start-ordered  # Start stacks in recommended order
+make stop-ordered   # Stop stacks in reverse order
+make pull-all       # Pull latest images for all stacks
+make emergency-stop # Force stop all containers
+make network-info   # Show network information
+
+# View logs for specific service
+make logs-service SERVICE=jellyfin
+```
+
 ## 🛠️ Included Services
 
 ### Infrastructure & Management
-| Service | Port | Purpose |
-|---------|------|---------|
-| Portainer | 9000 | Docker management interface |
-| Traefik | 8080 | Reverse proxy dashboard |
+| Service | Port | Purpose | Stack |
+|---------|------|---------|-------|
+| Portainer | 9000 | Docker management interface | Infrastructure |
+| Traefik | 8080 | Reverse proxy dashboard | Infrastructure |
+| FlareSolverr | 8191 | Cloudflare solver | Infrastructure |
 
 ### Monitoring & Observability
-| Service | Port | Purpose |
-|---------|------|---------|
-| Prometheus | 9090 | Metrics collection |
-| Grafana | 3000 | Data visualization |
-| Node Exporter | 9100 | System metrics |
-| cAdvisor | 8081 | Container metrics |
+| Service | Port | Purpose | Stack |
+|---------|------|---------|-------|
+| Prometheus | 9090 | Metrics collection | Monitoring |
+| Grafana | 3000 | Data visualization | Monitoring |
+| Node Exporter | 9100 | System metrics | Monitoring |
+| cAdvisor | 8081 | Container metrics | Monitoring |
 
 ### Media & Entertainment
-| Service | Port | Purpose |
-|---------|------|---------|
-| Jellyfin | 8096 | Media streaming server |
-| Sonarr | 8989 | TV series automation |
-| Radarr | 7878 | Movie automation |
-| Prowlarr | 9696 | Indexer management |
+| Service | Port | Purpose | Stack |
+|---------|------|---------|-------|
+| Jellyfin | 8096 | Media streaming server | Media |
+| Sonarr | 8989 | TV series automation | Media |
+| Radarr | 7878 | Movie automation | Media |
+| Prowlarr | 9696 | Indexer management | Media |
 
 ### Downloads & Acquisition
-| Service | Port | Purpose |
-|---------|------|---------|
-| qBittorrent | 8082 | BitTorrent client |
-| NZBGet | 6789 | Usenet client |
-| FlareSolverr | 8191 | Cloudflare solver |
-
-## 🔧 Prerequisites
-
-- **Operating System**: Linux (Ubuntu, Debian, Raspberry Pi OS, etc.)
-- **Docker Engine**: 20.10+
-- **Docker Compose**: v2.0+
-- **System Resources**: 4GB+ RAM, sufficient storage for media
-- **Permissions**: sudo access for initialization script
+| Service | Port | Purpose | Stack |
+|---------|------|---------|-------|
+| qBittorrent | 8082 | BitTorrent client | Download |
+| NZBGet | 6789 | Usenet client | Download |
 
 ## 📦 Installation
 
@@ -160,12 +246,12 @@ cd ../monitoring && docker-compose up -d
 git clone <your-repo-url>
 cd homelab
 
-# 2. Run initialization script
-chmod +x init-permissions.sh
-./init-permissions.sh
+# 2. Initialize everything
+make init
 ```
 
-**The initialization script automatically:**
+**The initialization automatically:**
+- ✅ Installs Make if not present (on supported systems)
 - ✅ Creates all required directories with proper permissions
 - ✅ Sets up users for both LinuxServer and official Docker images
 - ✅ Configures ACLs for cross-container file access
@@ -177,18 +263,21 @@ chmod +x init-permissions.sh
 If you prefer manual setup:
 
 ```bash
-# 1. Create directory structure
+# 1. Install Make
+sudo apt install make  # Ubuntu/Debian
+
+# 2. Create directory structure
 mkdir -p {data,storage,configs}
 mkdir -p data/{portainer,traefik,prometheus,grafana,jellyfin/{config,cache},sonarr,radarr,prowlarr,qbittorrent,nzbget}
 mkdir -p storage/{downloads,media/{movies,series,music}}
 mkdir -p configs/{traefik,prometheus,grafana/{datasources,dashboard-configs,dashboards}}
 
-# 2. Set permissions
+# 3. Set permissions
 sudo chown -R 911:911 data/ storage/
 sudo chown -R 472:911 data/grafana
 sudo chown -R 65534:911 data/prometheus
 
-# 3. Create .env file
+# 4. Create .env file
 cp .env.example .env
 # Edit .env with your values
 ```
@@ -197,32 +286,33 @@ cp .env.example .env
 
 ### Full Stack Operations
 ```bash
-# Start all stacks
+# Using Makefile (recommended)
+make up              # Start all stacks
+make down            # Stop all stacks
+make restart         # Restart all stacks
+make status          # View all services
+make logs            # Follow logs for all services
+
+# Traditional docker-compose
 docker-compose up -d
-
-# Stop all stacks  
 docker-compose down
-
-# View all services
 docker-compose ps
-
-# Follow logs for all services
 docker-compose logs -f
 ```
 
 ### Individual Stack Operations
 ```bash
-# Start specific stack
-cd stacks/infrastructure
+# Using Makefile (recommended)
+make media-up        # Start media stack
+make media-restart   # Restart media stack
+make media-logs      # View media stack logs
+make media-down      # Stop media stack
+
+# Traditional method
+cd stacks/media
 docker-compose up -d
-
-# Restart stack services
 docker-compose restart
-
-# View stack logs
 docker-compose logs -f
-
-# Stop stack
 docker-compose down
 ```
 
@@ -232,162 +322,241 @@ docker-compose down
 3. **Download** (acquisition services)
 4. **Media** (content management)
 
+```bash
+# Automated startup in order
+make start-ordered
+
+# Manual startup
+make infra-up
+sleep 5
+make monitoring-up
+sleep 5
+make download-up
+sleep 5
+make media-up
+```
+
 ## 🌐 Service Access
 
+### Web Interfaces
+- **Portainer**: http://localhost:9000 - Docker management
+- **Traefik Dashboard**: http://localhost:8080 - Proxy status
+- **Grafana**: http://localhost:3000 - Monitoring dashboards (admin/admin)
+- **Prometheus**: http://localhost:9090 - Metrics collection
+- **Jellyfin**: http://localhost:8096 - Media streaming
+- **Sonarr**: http://localhost:8989 - TV series management
+- **Radarr**: http://localhost:7878 - Movie management
+- **Prowlarr**: http://localhost:9696 - Indexer management
+- **qBittorrent**: http://localhost:8082 - BitTorrent downloads
+- **NZBGet**: http://localhost:6789 - Usenet downloads
+
 ### Default Credentials
-
-| Service | Username | Password | Notes |
-|---------|----------|----------|-------|
-| Grafana | admin | admin | Change on first login |
-| qBittorrent | admin | adminadmin | Default LinuxServer credentials |
-| NZBGet | nzbget | tegbzn6789 | Default LinuxServer credentials |
-
-### Configuration Files
-
-Service configurations are stored in:
-- **Traefik**: `configs/traefik/`
-- **Prometheus**: `configs/prometheus/prometheus.yml`
-- **Grafana**: `configs/grafana/`
+- **Grafana**: admin/admin (change on first login)
+- **qBittorrent**: admin/adminpass (configure in web UI)
+- **Other services**: No default credentials required
 
 ## 📊 Monitoring
 
-### Available Dashboards
-- **System Overview**: Node metrics, CPU, memory, disk usage
-- **Container Metrics**: Docker container resource usage
-- **Service Health**: Application-specific monitoring
+### Built-in Dashboards
+The monitoring stack provides comprehensive observability:
+
+- **System Metrics**: CPU, memory, disk, network usage
+- **Container Metrics**: Per-container resource consumption
+- **Service Health**: Availability and response times
+- **Storage Monitoring**: Disk usage and I/O performance
 
 ### Accessing Metrics
-- **Prometheus**: http://localhost:9090
-- **Grafana**: http://localhost:3000
-- **cAdvisor**: http://localhost:8081
+```bash
+# View current resource usage
+make monitor
 
-### Key Metrics Monitored
-- System resources (CPU, RAM, disk, network)
-- Container resource usage and health
-- Service availability and response times
-- Docker daemon metrics
+# Check disk usage
+make disk-usage
 
-## 🔍 Troubleshooting
+# Check services health
+make health
+
+# View detailed logs
+make logs-service SERVICE=prometheus
+```
+
+### Custom Dashboards
+Grafana dashboards are stored in `configs/grafana/dashboards/` and automatically provisioned.
+
+## 🔧 Troubleshooting
 
 ### Common Issues
 
-**Permission Errors**
+**Services won't start:**
 ```bash
-# Re-run the initialization script
-./init-permissions.sh
+# Check permissions
+make health
 
-# Or fix manually
-sudo chown -R 911:911 data/ storage/
+# Validate configurations
+make validate
+
+# View detailed logs
+make logs-service SERVICE=problematic-service
 ```
 
-**Service Won't Start**
+**Permission errors:**
 ```bash
-# Check service logs
-docker-compose logs <service-name>
+# Re-run initialization
+make init
 
-# Restart specific service
-docker-compose restart <service-name>
-
-# Rebuild service
-docker-compose up -d --force-recreate <service-name>
+# Check directory ownership
+ls -la data/ storage/
 ```
 
-**Port Conflicts**
+**Resource issues:**
 ```bash
-# Check what's using a port
-sudo netstat -tulpn | grep :<port>
+# Monitor resource usage
+make monitor
 
-# Modify port in .env file and restart
+# Clean up unused resources
+make cleanup
 ```
 
-**Network Issues**
+**Network connectivity:**
 ```bash
-# Recreate network
-docker network rm homelab
-docker-compose up -d
+# Check network configuration
+make network-info
+
+# Restart infrastructure stack
+make infra-restart
 ```
 
-### Useful Commands
-
+### Debugging Commands
 ```bash
-# View all containers
-docker ps -a
+# Emergency stop all containers
+make emergency-stop
 
-# Check container resource usage
-docker stats
+# View container sizes
+make container-sizes
 
-# View container logs
-docker logs <container-name>
+# Validate all configurations
+make validate
 
-# Execute command in container
-docker exec -it <container-name> /bin/bash
-
-# Cleanup unused images and volumes
-docker system prune -a
+# Show quick overview
+make overview
 ```
 
-### Log Locations
+## 🔄 Maintenance
 
-Container logs are accessible via:
+### Regular Maintenance Tasks
+
+**Weekly:**
 ```bash
-# All services
-docker-compose logs
-
-# Specific service
-docker-compose logs <service-name>
-
-# Follow logs in real-time
-docker-compose logs -f <service-name>
+make update          # Update Docker images
+make backup          # Backup configurations and data
+make cleanup         # Clean unused resources
 ```
 
-## 🔧 Customization
-
-### Environment Variables
-
-The `.env` file contains all configurable variables:
-
+**Monthly:**
 ```bash
-# User IDs (automatically configured)
-PUID=911
-PGID=911
-
-# Paths
-DATA_PATH=./data
-STORAGE_PATH=./storage
-CONFIG_PATH=./configs
-
-# Service settings
-WEBUI_PORT=8082
-PROMETHEUS_RETENTION=15d
-EXTERNAL_DNS=8.8.8.8
+make health          # Full health check
+make disk-usage      # Storage usage review
+make monitor         # Performance review
 ```
 
-### Adding New Services
+### Backup Strategy
+```bash
+# Manual backup
+make backup
+
+# Backups are stored in backups/ with timestamp
+# Includes both data/ and configs/ directories
+```
+
+### Updates
+```bash
+# Update images and restart
+make update
+make restart
+
+# Or update specific stack
+make media-down
+make update
+make media-up
+```
+
+## 📈 Performance Optimization
+
+### Resource Limits
+Each service includes resource limits optimized for Raspberry Pi 5:
+- Memory limits prevent OOM conditions
+- CPU limits ensure fair resource sharing
+- Restart policies maintain service availability
+
+### Monitoring Resource Usage
+```bash
+# Real-time monitoring
+make monitor
+
+# Historical data in Grafana
+# Access: http://localhost:3000
+```
+
+## 🔧 Adding New Services
+
+### To add a service:
 
 1. Choose appropriate stack directory
 2. Add service to stack's `docker-compose.yml`
 3. Update initialization script if needed
-4. Restart stack
+4. Add Makefile targets if desired
+5. Restart stack
+
+### Example: Adding a new service to media stack
+```bash
+# Edit the stack
+nano stacks/media/docker-compose.yml
+
+# Restart the stack
+make media-restart
+```
 
 ### Modifying Existing Services
 
 1. Edit service configuration in respective stack
-2. Restart affected stack
+2. Use Makefile to restart affected stack
 3. Verify service health in monitoring
+
+```bash
+# Edit and restart
+nano stacks/monitoring/docker-compose.yml
+make monitoring-restart
+make health
+```
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
-3. Test changes thoroughly
-4. Submit a pull request
+3. Test changes thoroughly with `make validate`
+4. Update documentation if needed
+5. Submit a pull request
 
 ### Development Guidelines
 
 - Follow existing code structure
-- Update documentation for changes
+- Update Makefile targets for new features
 - Test permission handling
+- Update documentation for changes
 - Verify cross-platform compatibility where applicable
+
+### Testing Changes
+```bash
+# Validate configurations
+make validate
+
+# Test full restart
+make down
+make up
+
+# Check health
+make health
+```
 
 ## 📝 License
 
@@ -398,3 +567,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - LinuxServer.io for excellent Docker images
 - The open-source community for the amazing tools
 - Docker team for containerization technology
+- GNU Make for task automation
