@@ -10,8 +10,8 @@ set -e  # Exit on error
 echo "🏠 Initializing Homelab permissions..."
 
 # Configuration
-DOCKER_USER_ID=${PUID:-911}
-DOCKER_GROUP_ID=${PGID:-911}
+DOCKER_USER_ID=${PUID:-1000}
+DOCKER_GROUP_ID=${PGID:-1000}
 DOCKER_USER_NAME="dockeruser"
 DOCKER_GROUP_NAME="dockergroup"
 
