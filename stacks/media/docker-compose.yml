@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  # === Media Server ===
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    ports:
+      - "8096:8096"
+    volumes:
+      - ${DATA_PATH}/jellyfin/config:/config
+      - ${DATA_PATH}/jellyfin/cache:/cache
+      - ${STORAGE_PATH}/media/movies:/media/movies:ro
+      - ${STORAGE_PATH}/media/series:/media/series:ro
+      - ${STORAGE_PATH}/media/music:/media/music:ro
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    networks:
+      - homelab
+
+  # === TV Series Management ===
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: unless-stopped
+    ports:
+      - "8989:8989"
+    volumes:
+      - ${DATA_PATH}/sonarr:/config
+      - ${STORAGE_PATH}/media/series:/series
+      - ${STORAGE_PATH}/downloads:/downloads
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    dns:
+      - ${EXTERNAL_DNS}
+    networks:
+      - homelab
+
+  # === Movie Management ===
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    restart: unless-stopped
+    ports:
+      - "7878:7878"
+    volumes:
+      - ${DATA_PATH}/radarr:/config
+      - ${STORAGE_PATH}/media/movies:/movies
+      - ${STORAGE_PATH}/downloads:/downloads
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    dns:
+      - ${EXTERNAL_DNS}
+    networks:
+      - homelab
+
+  # === Indexer Management ===
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    restart: unless-stopped
+    ports:
+      - "9696:9696"
+    volumes:
+      - ${DATA_PATH}/prowlarr:/config
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    dns:
+      - ${EXTERNAL_DNS}
+    networks:
+      - homelab
+
+networks:
+  homelab:
+    name: homelab
+    driver: bridge

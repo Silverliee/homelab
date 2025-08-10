@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # === BitTorrent Client ===
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    restart: unless-stopped
+    ports:
+      - "${WEBUI_PORT}:${WEBUI_PORT}"
+      - "6881:6881"
+      - "6881:6881/udp"
+    volumes:
+      - ${DATA_PATH}/qbittorrent:/config
+      - ${STORAGE_PATH}/downloads:/downloads
+    environment:
+      - WEBUI_PORT=${WEBUI_PORT}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    dns:
+      - ${EXTERNAL_DNS}
+    networks:
+      - homelab
+
+  # === Usenet Client ===
+  nzbget:
+    image: linuxserver/nzbget:latest
+    container_name: nzbget
+    restart: unless-stopped
+    ports:
+      - "6789:6789"
+    volumes:
+      - ${DATA_PATH}/nzbget:/config
+      - ${STORAGE_PATH}/downloads:/downloads
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    dns:
+      - ${EXTERNAL_DNS}
+    networks:
+      - homelab
+
+networks:
+  homelab:
+    name: homelab
+    driver: bridge
