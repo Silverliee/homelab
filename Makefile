@@ -60,14 +60,14 @@ init:
 # Start all services
 up: check-env
 	@echo "$(GREEN)🚀 Starting all services...$(NC)"
-	@docker-compose up -d
+	@docker compose up -d
 	@echo "$(GREEN)✅ All services started!$(NC)"
 	@make status
 
 # Stop all services
 down:
 	@echo "$(YELLOW)⏹️ Stopping all services...$(NC)"
-	@docker-compose down
+	@docker compose down
 	@echo "$(GREEN)✅ All services stopped!$(NC)"
 
 # Restart all services
@@ -77,12 +77,12 @@ restart: down up
 # Show services status
 status:
 	@echo "$(GREEN)📊 Services status:$(NC)"
-	@docker-compose ps
+	@docker compose ps
 
 # Show real-time logs
 logs:
 	@echo "$(GREEN)📋 Real-time logs (Ctrl+C to stop):$(NC)"
-	@docker-compose logs -f
+	@docker compose logs -f
 
 # =============================================================================
 # Stack management
@@ -91,11 +91,11 @@ logs:
 # Infrastructure Stack
 infra-up:
 	@echo "$(GREEN)🏗️ Starting infrastructure stack...$(NC)"
-	@cd $(STACKS_DIR)/infrastructure && docker-compose up -d
+	@cd $(STACKS_DIR)/infrastructure && docker compose up -d
 
 infra-down:
 	@echo "$(YELLOW)⏹️ Stopping infrastructure stack...$(NC)"
-	@cd $(STACKS_DIR)/infrastructure && docker-compose down
+	@cd $(STACKS_DIR)/infrastructure && docker compose down
 
 infra-restart:
 	@make infra-down
@@ -103,16 +103,16 @@ infra-restart:
 
 infra-logs:
 	@echo "$(BLUE)📋 Infrastructure logs:$(NC)"
-	@cd $(STACKS_DIR)/infrastructure && docker-compose logs -f
+	@cd $(STACKS_DIR)/infrastructure && docker compose logs -f
 
 # Monitoring Stack
 monitoring-up:
 	@echo "$(GREEN)📊 Starting monitoring stack...$(NC)"
-	@cd $(STACKS_DIR)/monitoring && docker-compose up -d
+	@cd $(STACKS_DIR)/monitoring && docker compose up -d
 
 monitoring-down:
 	@echo "$(YELLOW)⏹️ Stopping monitoring stack...$(NC)"
-	@cd $(STACKS_DIR)/monitoring && docker-compose down
+	@cd $(STACKS_DIR)/monitoring && docker compose down
 
 monitoring-restart:
 	@make monitoring-down
@@ -120,16 +120,16 @@ monitoring-restart:
 
 monitoring-logs:
 	@echo "$(BLUE)📋 Monitoring logs:$(NC)"
-	@cd $(STACKS_DIR)/monitoring && docker-compose logs -f
+	@cd $(STACKS_DIR)/monitoring && docker compose logs -f
 
 # Media Stack
 media-up:
 	@echo "$(GREEN)🎬 Starting media stack...$(NC)"
-	@cd $(STACKS_DIR)/media && docker-compose up -d
+	@cd $(STACKS_DIR)/media && docker compose up -d
 
 media-down:
 	@echo "$(YELLOW)⏹️ Stopping media stack...$(NC)"
-	@cd $(STACKS_DIR)/media && docker-compose down
+	@cd $(STACKS_DIR)/media && docker compose down
 
 media-restart:
 	@make media-down
@@ -137,16 +137,16 @@ media-restart:
 
 media-logs:
 	@echo "$(BLUE)📋 Media logs:$(NC)"
-	@cd $(STACKS_DIR)/media && docker-compose logs -f
+	@cd $(STACKS_DIR)/media && docker compose logs -f
 
 # Download Stack
 download-up:
 	@echo "$(GREEN)⬇️ Starting download stack...$(NC)"
-	@cd $(STACKS_DIR)/download && docker-compose up -d
+	@cd $(STACKS_DIR)/download && docker compose up -d
 
 download-down:
 	@echo "$(YELLOW)⏹️ Stopping download stack...$(NC)"
-	@cd $(STACKS_DIR)/download && docker-compose down
+	@cd $(STACKS_DIR)/download && docker compose down
 
 download-restart:
 	@make download-down
@@ -154,13 +154,13 @@ download-restart:
 
 download-logs:
 	@echo "$(BLUE)📋 Download logs:$(NC)"
-	@cd $(STACKS_DIR)/download && docker-compose logs -f
+	@cd $(STACKS_DIR)/download && docker compose logs -f
 
 # Utilities Stack (if exists)
 utilities-up:
 	@echo "$(GREEN)🛠️ Starting utilities stack...$(NC)"
 	@if [ -d "$(STACKS_DIR)/utilities" ]; then \
-		cd $(STACKS_DIR)/utilities && docker-compose up -d; \
+		cd $(STACKS_DIR)/utilities && docker compose up -d; \
 	else \
 		echo "$(YELLOW)⚠️ Utilities stack not found$(NC)"; \
 	fi
@@ -168,7 +168,7 @@ utilities-up:
 utilities-down:
 	@echo "$(YELLOW)⏹️ Stopping utilities stack...$(NC)"
 	@if [ -d "$(STACKS_DIR)/utilities" ]; then \
-		cd $(STACKS_DIR)/utilities && docker-compose down; \
+		cd $(STACKS_DIR)/utilities && docker compose down; \
 	else \
 		echo "$(YELLOW)⚠️ Utilities stack not found$(NC)"; \
 	fi
@@ -187,7 +187,7 @@ check-env:
 # Update all Docker images
 update:
 	@echo "$(GREEN)🔄 Updating Docker images...$(NC)"
-	@docker-compose pull
+	@docker compose pull
 	@echo "$(GREEN)✅ Images updated!$(NC)"
 	@echo "$(YELLOW)💡 Run 'make restart' to apply updates$(NC)"
 
@@ -243,7 +243,7 @@ logs-service:
 		exit 1; \
 	fi
 	@echo "$(GREEN)📋 Logs for service $(SERVICE):$(NC)"
-	@docker-compose logs -f $(SERVICE)
+	@docker compose logs -f $(SERVICE)
 
 # =============================================================================
 # Ordered startup/shutdown
@@ -281,10 +281,10 @@ stop-ordered:
 # Validate docker-compose files syntax
 validate:
 	@echo "$(GREEN)✅ Validating docker-compose files...$(NC)"
-	@docker-compose config > /dev/null && echo "$(GREEN)✅ Main file valid$(NC)" || echo "$(RED)❌ Error in main file$(NC)"
+	@docker compose config > /dev/null && echo "$(GREEN)✅ Main file valid$(NC)" || echo "$(RED)❌ Error in main file$(NC)"
 	@for stack in infrastructure monitoring media download utilities; do \
 		if [ -f "$(STACKS_DIR)/$$stack/docker-compose.yml" ]; then \
-			cd $(STACKS_DIR)/$$stack && docker-compose config > /dev/null && echo "$(GREEN)✅ Stack $$stack valid$(NC)" || echo "$(RED)❌ Error in stack $$stack$(NC)"; \
+			cd $(STACKS_DIR)/$$stack && docker compose config > /dev/null && echo "$(GREEN)✅ Stack $$stack valid$(NC)" || echo "$(RED)❌ Error in stack $$stack$(NC)"; \
 			cd ../..; \
 		fi \
 	done
@@ -292,11 +292,11 @@ validate:
 # Pull latest images for all stacks
 pull-all:
 	@echo "$(GREEN)📥 Pulling latest images...$(NC)"
-	@docker-compose pull
+	@docker compose pull
 	@for stack in infrastructure monitoring media download utilities; do \
 		if [ -d "$(STACKS_DIR)/$$stack" ]; then \
 			echo "$(YELLOW)Pulling $$stack stack...$(NC)"; \
-			cd $(STACKS_DIR)/$$stack && docker-compose pull; \
+			cd $(STACKS_DIR)/$$stack && docker compose pull; \
 			cd ../..; \
 		fi \
 	done
@@ -326,7 +326,7 @@ overview:
 	@echo "$(GREEN)📊 Homelab Overview$(NC)"
 	@echo ""
 	@echo "$(YELLOW)Services Status:$(NC)"
-	@docker-compose ps --format table
+	@docker compose ps --format table
 	@echo ""
 	@echo "$(YELLOW)Resource Usage:$(NC)"
 	@docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"
