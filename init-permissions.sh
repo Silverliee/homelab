@@ -262,6 +262,8 @@ HOMELAB_NETWORK=homelab
 PROMETHEUS_RETENTION=15d
 EXTERNAL_DNS=8.8.8.8
 
+# Homarr configuration 
+SECRET_ENCRYPTION_KEY=73e5503492c6d0178784ce7128d013690897e0bd00f10a92c8d7fd3a4872166c
 # =============================================================================
 # Image compatibility notes:
 # - LinuxServer images: Respect PUID/PGID variables

@@ -43,6 +43,7 @@ The homelab is organized into **4 modular stacks**:
 
 #### 🔧 Infrastructure Stack
 **Core services and networking**
+- **Homarr**: Main dashboard for homalab services 
 - **Portainer**: Docker container management interface
 - **Traefik**: Reverse proxy and load balancer
 - **FlareSolverr**: Cloudflare bypass for indexers
@@ -140,6 +141,7 @@ make status
 ```
 
 ### 3. Access Services
+- **Homarr**: http://localhost:7575
 - **Portainer**: http://localhost:9000
 - **Grafana**: http://localhost:3000 (admin/admin)
 - **Jellyfin**: http://localhost:8096
@@ -211,11 +213,12 @@ make logs-service SERVICE=jellyfin
 ## 🛠️ Included Services
 
 ### Infrastructure & Management
-| Service | Port | Purpose | Stack |
-|---------|------|---------|-------|
-| Portainer | 9000 | Docker management interface | Infrastructure |
-| Traefik | 8080 | Reverse proxy dashboard | Infrastructure |
-| FlareSolverr | 8191 | Cloudflare solver | Infrastructure |
+| Service      | Port | Purpose                     | Stack |
+|--------------|------|-----------------------------|-------|
+| Homarr       | 7575 | Homelab dashboard           | Infrastructure |
+| Portainer    | 9000 | Docker management interface | Infrastructure |
+| Traefik      | 8080 | Reverse proxy dashboard     | Infrastructure |
+| FlareSolverr | 8191 | Cloudflare solver           | Infrastructure |
 
 ### Monitoring & Observability
 | Service | Port | Purpose | Stack |
@@ -342,6 +345,7 @@ make media-up
 ## 🌐 Service Access
 
 ### Web Interfaces
+- **Homarr*: http://localhost:7575 - Homalab dashboard
 - **Portainer**: http://localhost:9000 - Docker management
 - **Traefik Dashboard**: http://localhost:8080 - Proxy status
 - **Grafana**: http://localhost:3000 - Monitoring dashboards (admin/admin)
