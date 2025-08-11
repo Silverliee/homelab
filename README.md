@@ -30,7 +30,7 @@ This project provides a modular homelab solution featuring:
 - **🏗️ Modular Architecture**: Organized in logical stacks for easy management
 - **🔧 Automatic Setup**: Script-based initialization with proper permissions
 - **📊 Complete Monitoring**: Prometheus + Grafana observability stack
-- **🎬 Media Management**: Jellyfin with automated acquisition (Sonarr/Radarr)
+- **🎬 Media Management**: Jellyseerr + Jellyfin with automated acquisition (Sonarr/Radarr)
 - **⬇️ Download Management**: qBittorrent + NZBGet with indexer management
 - **🌐 Reverse Proxy**: Traefik for unified access and load balancing
 - **⚡ Makefile Automation**: Simplified commands for all operations
@@ -56,6 +56,7 @@ The homelab is organized into **4 modular stacks**:
 
 #### 🎬 Media Stack
 **Media server and content management**
+- **Jellyseerr**: Media library manager
 - **Jellyfin**: Personal media streaming server
 - **Sonarr**: Automated TV series management
 - **Radarr**: Automated movie management
@@ -142,6 +143,7 @@ make status
 - **Portainer**: http://localhost:9000
 - **Grafana**: http://localhost:3000 (admin/admin)
 - **Jellyfin**: http://localhost:8096
+- **Jellyseerr**: http://localhost:5055
 
 ## ⚡ Makefile Commands
 
@@ -224,12 +226,13 @@ make logs-service SERVICE=jellyfin
 | cAdvisor | 8081 | Container metrics | Monitoring |
 
 ### Media & Entertainment
-| Service | Port | Purpose | Stack |
-|---------|------|---------|-------|
-| Jellyfin | 8096 | Media streaming server | Media |
-| Sonarr | 8989 | TV series automation | Media |
-| Radarr | 7878 | Movie automation | Media |
-| Prowlarr | 9696 | Indexer management | Media |
+| Service   | Port | Purpose                | Stack |
+|-----------|------|------------------------|-------|
+| Jellyseer | 5055 | Media server manager   | Media |
+| Jellyfin  | 8096 | Media streaming server | Media |
+| Sonarr    | 8989 | TV series automation   | Media |
+| Radarr    | 7878 | Movie automation       | Media |
+| Prowlarr  | 9696 | Indexer management     | Media |
 
 ### Downloads & Acquisition
 | Service | Port | Purpose | Stack |
@@ -343,6 +346,7 @@ make media-up
 - **Traefik Dashboard**: http://localhost:8080 - Proxy status
 - **Grafana**: http://localhost:3000 - Monitoring dashboards (admin/admin)
 - **Prometheus**: http://localhost:9090 - Metrics collection
+- **Jellyseerr**: http://localhost:5055 - Media server manager
 - **Jellyfin**: http://localhost:8096 - Media streaming
 - **Sonarr**: http://localhost:8989 - TV series management
 - **Radarr**: http://localhost:7878 - Movie management

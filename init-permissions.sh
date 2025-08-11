@@ -72,6 +72,7 @@ fi
 
 # LinuxServer containers (use PUID/PGID)
 declare -A LINUXSERVER_DIRS=(
+    ["data/jellyseerr"]="$DOCKER_USER_ID"
     ["data/jellyfin"]="$DOCKER_USER_ID"
     ["data/sonarr"]="$DOCKER_USER_ID"
     ["data/radarr"]="$DOCKER_USER_ID"
@@ -211,6 +212,7 @@ check_permissions() {
 }
 
 echo "📊 Checking critical directories:"
+check_permissions "data/jellyseerr"
 check_permissions "data/jellyfin"
 check_permissions "data/prometheus"
 check_permissions "data/grafana"
