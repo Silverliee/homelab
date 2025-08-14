@@ -252,8 +252,8 @@ CONFIG_PATH=../../configs
 GF_SECURITY_ADMIN_PASSWORD=admin
 GF_USERS_ALLOW_SIGN_UP=false
 
-# gluetun configuration
-OPENVPN_USER=default
+# gluetun configuration (add +pmp at the end of your openvpn user)
+OPENVPN_USER=default+pmp 
 OPENVPN_PASSWORD=default
 SERVER_COUNTRIES=Netherlands,Switzerland
 # qBittorrent configuration
