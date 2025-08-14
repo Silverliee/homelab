@@ -41,7 +41,8 @@ services:
     restart: unless-stopped
     network_mode: "service:gluetun"
     depends_on:
-      - gluetun
+      gluetun:
+        condition: service_healthy
     volumes:
       - ${DATA_PATH}/qbittorrent:/config
       - ${STORAGE_PATH}/downloads:/downloads
