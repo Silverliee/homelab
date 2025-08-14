@@ -1,15 +1,46 @@
 version: '3.8'
 
 services:
+  # === VPN Client ===
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - "${WEBUI_PORT}:${WEBUI_PORT}"  # qBittorrent WebUI
+      - "6881:6881"                     # qBittorrent BitTorrent port
+      - "6881:6881/udp"
+    volumes:
+      - ${DATA_PATH}/gluetun:/gluetun
+    environment:
+      - VPN_SERVICE_PROVIDER=protonvpn
+      - VPN_TYPE=openvpn
+      - OPENVPN_USER=${PROTON_USERNAME}
+      - OPENVPN_PASSWORD=${PROTON_PASSWORD}
+      - SERVER_COUNTRIES=${PROTON_COUNTRIES}
+      - FIREWALL_OUTBOUND_SUBNETS=192.168.0.0/16,172.16.0.0/12,10.0.0.0/8
+      - FIREWALL_VPN_INPUT_PORTS=6881
+      - DOT=off
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    dns:
+      - ${EXTERNAL_DNS}
+    networks:
+      - homelab
+
   # === BitTorrent Client ===
   qbittorrent:
     image: linuxserver/qbittorrent:latest
     container_name: qbittorrent
     restart: unless-stopped
-    ports:
-      - "${WEBUI_PORT}:${WEBUI_PORT}"
-      - "6881:6881"
-      - "6881:6881/udp"
+    network_mode: "service:gluetun"
+    depends_on:
+      - gluetun
     volumes:
       - ${DATA_PATH}/qbittorrent:/config
       - ${STORAGE_PATH}/downloads:/downloads
@@ -18,10 +49,6 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-    dns:
-      - ${EXTERNAL_DNS}
-    networks:
-      - homelab
 
   # === Usenet Client ===
   nzbget:

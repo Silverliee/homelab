@@ -252,6 +252,10 @@ CONFIG_PATH=../../configs
 GF_SECURITY_ADMIN_PASSWORD=admin
 GF_USERS_ALLOW_SIGN_UP=false
 
+# gluetun configuration
+PROTON_USERNAME=default
+OPENVPN_PASSWORD=default
+SERVER_COUNTRIES=Netherlands,Switzerland
 # qBittorrent configuration
 WEBUI_PORT=8082
 
