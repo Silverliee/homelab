@@ -12,26 +12,25 @@ services:
       - /dev/net/tun:/dev/net/tun
     ports:
       - "${WEBUI_PORT}:${WEBUI_PORT}"  # qBittorrent WebUI
-      - "6881:6881"                     # qBittorrent BitTorrent port
+      - "6881:6881"                    # qBittorrent BitTorrent port
       - "6881:6881/udp"
     volumes:
       - ${DATA_PATH}/gluetun:/gluetun
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
+      - VPN_TYPE=openvpn
+      - OPENVPN_VERSION=2.5
       - OPENVPN_USER=${OPENVPN_USER}
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
       - SERVER_COUNTRIES=${PROTON_COUNTRIES}
-      - OPENVPN_CIPHERS=AES-256-GCM
       - BLOCK_MALICIOUS=off
       - UPDATER_PERIOD=24h
       - PORT_FORWARD_ONLY=on
       - VPN_PORT_FORWARDING=on
-      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{PORTS}}}" http://127.0.0.1:8082/api/v2/app/setPreferences 2>&1'
+      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'sleep 10 && wget -O- --retry-connrefused --tries=10 --waitretry=5 --post-data "json={\"listen_port\":{{PORTS}}}" http://127.0.0.1:${WEBUI_PORT}/api/v2/app/setPreferences 2>&1'
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-    dns:
-      - ${EXTERNAL_DNS}
     networks:
       - homelab
 
