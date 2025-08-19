@@ -18,7 +18,7 @@ DOCKER_GROUP_NAME="dockergroup"
 # Official image UIDs
 PROMETHEUS_UID=65534    # nobody user
 GRAFANA_UID=472        # grafana user
-TRAEFIK_UID=0          # root user
+ROOT_UID=0          # root user
 
 echo "📋 Using configuration:"
 echo "   - PUID: $DOCKER_USER_ID (LinuxServer images)"
@@ -85,8 +85,8 @@ declare -A LINUXSERVER_DIRS=(
 declare -A OFFICIAL_DIRS=(
     ["data/prometheus"]="$PROMETHEUS_UID"
     ["data/grafana"]="$GRAFANA_UID"
-    ["data/traefik"]="$TRAEFIK_UID"
-    ["data/portainer"]="$TRAEFIK_UID"
+    ["data/nginx-proxy-manager"]="$ROOT_UID"
+    ["data/portainer"]="$ROOT_UID"
 )
 
 # Shared storage directories (accessible by all)
@@ -105,7 +105,7 @@ STORAGE_DIRS=(
 
 # Configuration directories (host managed)
 CONFIG_DIRS=(
-    "configs/traefik"
+    "configs/nginx-proxy-manager"
     "configs/prometheus"
     "configs/grafana/datasources"
     "configs/grafana/dashboard-configs"
@@ -238,7 +238,7 @@ PGID=$DOCKER_GROUP_ID
 # Official image UIDs (fixed, cannot be changed)
 PROMETHEUS_UID=$PROMETHEUS_UID
 GRAFANA_UID=$GRAFANA_UID
-TRAEFIK_UID=$TRAEFIK_UID
+ROOT_UID=$ROOT_UID
 
 # Timezone
 TZ=Europe/Paris

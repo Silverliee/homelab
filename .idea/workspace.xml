@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff99b9e8-2ebe-4f64-ba0e-2cd1f377d5ff" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/configs/prometheus/prometheus.yml" beforeDir="false" afterPath="$PROJECT_DIR$/configs/prometheus/prometheus.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/traefik/traefik.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+    <list default="true" id="37e384e8-36c6-4077-a9a8-ab57b5a67e67" name="Changes" comment="fix: add container name for watchtower">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-permissions.sh" beforeDir="false" afterPath="$PROJECT_DIR$/init-permissions.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stacks/infrastructure/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/stacks/infrastructure/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,20 +19,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///home/mtraore/Homelab/configs/grafana/dashboards/node-exporter.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/data/jellyfin/config/config/logging.default.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/data/jellyfin/config/config/system.xml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/data/jellyfin/config/log/log_20250803.log" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/data/portainer/portainer.db" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/data/portainer/portainer.key" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/data/portainer/portainer.pub" root0="FORCE_HIGHLIGHTING" />
-  </component>
-  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
+  &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="30WfJ7KLqKIfVzk9Zv7AUVycqw8" />
+  <component name="ProjectId" id="31Py0M9cV3goafJma0pmfZlbWiV" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -38,138 +31,51 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHELLCHECK.PATH&quot;: &quot;/home/mtraore/.local/share/JetBrains/Rider2025.2/Shell Script/shellcheck&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/mtraore/Testfield&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHELLCHECK.PATH": "C:\\Users\\moham\\AppData\\Roaming\\JetBrains\\Rider2025.2\\plugins\\Shell Script\\shellcheck.exe",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RdControllerToolWindowsLayoutState" isNewUi="true">
-    <layout>
-      <window_info id="Bookmarks" side_tool="true" />
-      <window_info id="Merge Requests" />
-      <window_info id="Assembly Explorer" side_tool="true" />
-      <window_info id="Backup and Sync History" />
-      <window_info id="Commit_Guest" show_stripe_button="false" />
-      <window_info id="Pull Requests" />
-      <window_info id="Learn" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.38329646" />
-      <window_info id="Commit" order="1" weight="0.38329646" />
-      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="TypeScript" />
-      <window_info anchor="bottom" id="Build" />
-      <window_info anchor="bottom" id="Dynamic Program Analysis" />
-      <window_info anchor="bottom" id="TODO" />
-      <window_info anchor="bottom" id="Unit Tests" />
-      <window_info anchor="bottom" id="dotTrace Profiler" />
-      <window_info anchor="bottom" id="File Transfer" />
-      <window_info anchor="bottom" id="NuGet" />
-      <window_info anchor="bottom" id="dotMemory" />
-      <window_info anchor="bottom" id="Unity" />
-      <window_info anchor="bottom" id="Find" />
-      <window_info anchor="bottom" id="Version Control" order="0" />
-      <window_info anchor="bottom" id="Problems" order="1" />
-      <window_info anchor="bottom" id="Problems View" order="2" />
-      <window_info active="true" anchor="bottom" x="568" y="375" width="941" height="324" id="Terminal" order="3" visible="true" weight="0.29837984" />
-      <window_info anchor="bottom" id="Services" order="4" />
-      <window_info anchor="right" id="RoslynVisualizer" />
-      <window_info anchor="right" id="Endpoints" />
-      <window_info anchor="right" id="make" side_tool="true" />
-      <window_info anchor="right" id="Monitoring" />
-      <window_info anchor="right" id="TscnScenePreviewWindowId" />
-      <window_info anchor="right" id="IL" />
-      <window_info anchor="right" id="dotCoverToolWindow" />
-      <window_info anchor="right" id="Coverage" side_tool="true" />
-      <window_info anchor="right" id="Material Theme: Next Theme Countdown" show_stripe_button="false" side_tool="true" />
-      <window_info anchor="right" content_ui="combo" id="Notifications" order="0" weight="0.25" />
-      <window_info anchor="right" id="AIAssistant" order="1" weight="0.25" />
-      <window_info anchor="right" id="Database" order="2" weight="0.25" />
-      <window_info anchor="right" id="Gradle" order="3" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="4" weight="0.25" />
-    </layout>
-  </component>
+}]]></component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="ff99b9e8-2ebe-4f64-ba0e-2cd1f377d5ff" name="Changes" comment="" />
-      <created>1753748175271</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1753748175271</updated>
-      <workItem from="1753748176510" duration="1148000" />
-      <workItem from="1753749813042" duration="301000" />
-      <workItem from="1753750613706" duration="3587000" />
-      <workItem from="1753754553179" duration="1150000" />
-      <workItem from="1754047227582" duration="100000" />
-      <workItem from="1754047351475" duration="7192000" />
-      <workItem from="1754057806476" duration="1673000" />
-      <workItem from="1754150378309" duration="246000" />
-      <workItem from="1754222598728" duration="6367000" />
-      <workItem from="1754229157085" duration="689000" />
-      <workItem from="1754230008693" duration="4688000" />
-      <workItem from="1754235748357" duration="3621000" />
-      <workItem from="1754306572968" duration="5063000" />
-    </task>
-    <task id="LOCAL-00001" summary="add git ignore">
+    <task id="LOCAL-00001" summary="fix: add container name for watchtower">
       <option name="closed" value="true" />
-      <created>1753755184449</created>
+      <created>1755381565790</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1753755184449</updated>
+      <updated>1755381565790</updated>
     </task>
-    <task id="LOCAL-00002" summary="add cadvisor for docker container monitoring">
-      <option name="closed" value="true" />
-      <created>1754059672961</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1754059672961</updated>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="37e384e8-36c6-4077-a9a8-ab57b5a67e67" name="Changes" comment="fix: add container name for watchtower" />
+      <created>1755439783945</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1755439783945</updated>
+      <workItem from="1755439787639" duration="124000" />
+      <workItem from="1755618879021" duration="56000" />
+      <workItem from="1755618989167" duration="1215000" />
     </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
-    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="add git ignore" />
-    <MESSAGE value="add cadvisor for docker container monitoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="add cadvisor for docker container monitoring" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
-          <option name="timeStamp" value="2" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
-          <option name="timeStamp" value="3" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
+    <MESSAGE value="fix: add container name for watchtower" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: add container name for watchtower" />
   </component>
 </project>

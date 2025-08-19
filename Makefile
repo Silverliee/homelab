@@ -77,7 +77,7 @@ restart: down up
 # Show services status
 status:
 	@echo "$(GREEN)📊 Services status:$(NC)"
-	@docker compose ps
+	@docker compose ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
 # Show real-time logs
 logs:

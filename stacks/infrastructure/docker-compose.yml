@@ -30,24 +30,22 @@ services:
       - homelab
 
   # === Reverse Proxy ===
-  traefik:
-    image: traefik:v3.0
-    container_name: traefik
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy-manager
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"
+      - '80:80'
+      - '81:81'
+      - '443:443'
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${CONFIG_PATH}/traefik:/etc/traefik
-      - ${DATA_PATH}/traefik:/data
+      - ${DATA_PATH}/nginx-proxy-manager:/data
+      - ${CONFIG_PATH}/nginx-proxy-manager:/etc/letsencrypt
     environment:
-      - TRAEFIK_API_DASHBOARD=true
-      - TRAEFIK_API_INSECURE=true
+      DB_SQLITE_FILE: ${DATA_PATH}/nginx-proxy-manager/database/database.sqlite
     networks:
       - homelab
-
+    
   # === Container's Update Watchtower ===
   watchtower:
     image: containrrr/watchtower

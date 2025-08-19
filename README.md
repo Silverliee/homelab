@@ -32,7 +32,7 @@ This project provides a modular homelab solution featuring:
 - **📊 Complete Monitoring**: Prometheus + Grafana observability stack
 - **🎬 Media Management**: Jellyseerr + Jellyfin with automated acquisition (Sonarr/Radarr)
 - **⬇️ Download Management**: qBittorrent + NZBGet with indexer management
-- **🌐 Reverse Proxy**: Traefik for unified access and load balancing
+- **🌐 Reverse Proxy**: nginx-proxy-manager for unified access and load balancing
 - **⚡ Makefile Automation**: Simplified commands for all operations
 
 ## 🏗️ Architecture
@@ -45,7 +45,7 @@ The homelab is organized into **4 modular stacks**:
 **Core services and networking**
 - **Homarr**: Main dashboard for homalab services 
 - **Portainer**: Docker container management interface
-- **Traefik**: Reverse proxy and load balancer
+- **nginx-proxy-manager**: Reverse proxy and load balancer
 - **FlareSolverr**: Cloudflare bypass for indexers
 
 #### 📊 Monitoring Stack
@@ -214,10 +214,10 @@ make logs-service SERVICE=jellyfin
 
 ### Infrastructure & Management
 | Service      | Port | Purpose                     | Stack |
-|--------------|------|-----------------------------|-------|
+|--------------|----|-----------------------------|-------|
 | Homarr       | 7575 | Homelab dashboard           | Infrastructure |
 | Portainer    | 9000 | Docker management interface | Infrastructure |
-| Traefik      | 8080 | Reverse proxy dashboard     | Infrastructure |
+| nginx-proxy-manager      | 80 | Reverse proxy dashboard     | Infrastructure |
 | FlareSolverr | 8191 | Cloudflare solver           | Infrastructure |
 
 ### Monitoring & Observability
@@ -274,9 +274,9 @@ sudo apt install make  # Ubuntu/Debian
 
 # 2. Create directory structure
 mkdir -p {data,storage,configs}
-mkdir -p data/{portainer,traefik,prometheus,grafana,jellyfin/{config,cache},sonarr,radarr,prowlarr,qbittorrent,nzbget}
+mkdir -p data/{portainer,nginx-proxy-manager,prometheus,grafana,jellyfin/{config,cache},sonarr,radarr,prowlarr,qbittorrent,nzbget}
 mkdir -p storage/{downloads,media/{movies,series,music}}
-mkdir -p configs/{traefik,prometheus,grafana/{datasources,dashboard-configs,dashboards}}
+mkdir -p configs/{nginx-proxy-manager,prometheus,grafana/{datasources,dashboard-configs,dashboards}}
 
 # 3. Set permissions
 sudo chown -R 911:911 data/ storage/
@@ -347,7 +347,7 @@ make media-up
 ### Web Interfaces
 - **Homarr*: http://localhost:7575 - Homalab dashboard
 - **Portainer**: http://localhost:9000 - Docker management
-- **Traefik Dashboard**: http://localhost:8080 - Proxy status
+- **nginx-proxy-manager Dashboard**: http://localhost:80 - Proxy status
 - **Grafana**: http://localhost:3000 - Monitoring dashboards (admin/admin)
 - **Prometheus**: http://localhost:9090 - Metrics collection
 - **Jellyseerr**: http://localhost:5055 - Media server manager
