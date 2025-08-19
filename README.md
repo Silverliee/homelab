@@ -214,10 +214,10 @@ make logs-service SERVICE=jellyfin
 
 ### Infrastructure & Management
 | Service      | Port | Purpose                     | Stack |
-|--------------|----|-----------------------------|-------|
+|--------------|------|-----------------------------|-------|
 | Homarr       | 7575 | Homelab dashboard           | Infrastructure |
 | Portainer    | 9000 | Docker management interface | Infrastructure |
-| nginx-proxy-manager      | 80 | Reverse proxy dashboard     | Infrastructure |
+| nginx-proxy-manager      | 8080 | Reverse proxy dashboard     | Infrastructure |
 | FlareSolverr | 8191 | Cloudflare solver           | Infrastructure |
 
 ### Monitoring & Observability
