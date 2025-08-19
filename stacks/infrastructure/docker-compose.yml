@@ -41,8 +41,6 @@ services:
     volumes:
       - ${DATA_PATH}/nginx-proxy-manager:/data
       - ${CONFIG_PATH}/nginx-proxy-manager:/etc/letsencrypt
-    environment:
-      DB_SQLITE_FILE: ${DATA_PATH}/nginx-proxy-manager/database/database.sqlite
     networks:
       - homelab
     
