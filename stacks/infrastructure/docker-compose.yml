@@ -65,6 +65,9 @@ services:
       - ${STORAGE_PATH}:/source/storage:ro
       - ${DATA_PATH}:/source/data:ro
       - ./backups:/backups 
+    environment:
+      SETTINGS_ENCRYPTION_KEY: ${DUPLICATI_ENCRYPTION_KEY}
+      DUPLICATI__WEBSERVICE_PASSWORD: ${DUPLICATI_WEBSERVICE_PASSWORD}
     networks:
       - homelab
 
