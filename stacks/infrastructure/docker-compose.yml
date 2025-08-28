@@ -52,6 +52,21 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - WATCHTOWER_CLEANUP=true  # Remove last image version
+    
+  # === Backup Service ===
+  duplicati:
+    image: linuxserver/duplicati:latest
+    container_name: duplicati
+    restart: unless-stopped
+    ports:
+      - "8200:8200"
+    volumes:
+      - ${DATA_PATH}/duplicati:/config
+      - ${STORAGE_PATH}:/source/storage:ro
+      - ${DATA_PATH}:/source/data:ro
+      - ./backups:/backups 
+    networks:
+      - homelab
 
   # === CloudFlare Solver ===
   flaresolverr:

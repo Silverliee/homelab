@@ -79,6 +79,7 @@ declare -A LINUXSERVER_DIRS=(
     ["data/prowlarr"]="$DOCKER_USER_ID"
     ["data/qbittorrent"]="$DOCKER_USER_ID"
     ["data/nzbget"]="$DOCKER_USER_ID"
+    ["data/duplicati"]="$DOCKER_USER_ID"
 )
 
 # Official images with fixed UIDs
