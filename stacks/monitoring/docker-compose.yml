@@ -20,6 +20,14 @@ services:
       - '--web.enable-lifecycle'
     networks:
       - homelab
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.2'
 
   # === Data Visualization ===
   grafana:
@@ -38,6 +46,14 @@ services:
       - GF_USERS_ALLOW_SIGN_UP=false
     networks:
       - homelab
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.1'
 
   # === System Metrics ===
   node-exporter:
@@ -60,9 +76,11 @@ services:
     deploy:
       resources:
         limits:
-          memory: 16M
+          memory: 32M
+          cpus: '0.1'
         reservations:
-          memory: 8M
+          memory: 16M
+          cpus: '0.05'
 
   # === Container Metrics ===
 #  cadvisor:

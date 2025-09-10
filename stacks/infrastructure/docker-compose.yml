@@ -15,6 +15,14 @@ services:
       - '7575:7575'
     networks:
       - homelab
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.3'
+        reservations:
+          memory: 64M
+          cpus: '0.1'
     
   # === Docker Manager ===
   portainer:
@@ -28,6 +36,14 @@ services:
       - ${DATA_PATH}/portainer:/data
     networks:
       - homelab
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.3'
+        reservations:
+          memory: 64M
+          cpus: '0.05'
 
   # === Reverse Proxy ===
   nginx-proxy-manager:
@@ -43,7 +59,15 @@ services:
       - ${CONFIG_PATH}/nginx-proxy-manager:/etc/letsencrypt
     networks:
       - homelab
-    
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.1'  
+  
   # === Container's Update Watchtower ===
   watchtower:
     image: containrrr/watchtower

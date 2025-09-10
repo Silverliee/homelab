@@ -22,6 +22,14 @@ services:
     restart: unless-stopped
     networks:
       - homelab
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.3'
+        reservations:
+          memory: 64M
+          cpus: '0.1'
     
   # === Music Streaming Server ===
 #  navidrome:
@@ -55,6 +63,14 @@ services:
       - TZ=${TZ}
     networks:
       - homelab
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '2.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
 
   # === TV Series Management ===
   sonarr:
@@ -75,6 +91,14 @@ services:
       - ${EXTERNAL_DNS}
     networks:
       - homelab
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.1'
 
   # === Movie Management ===
   radarr:
@@ -95,6 +119,14 @@ services:
       - ${EXTERNAL_DNS}
     networks:
       - homelab
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.1'
   
   # === Music Management ===
 #  lidarr:
@@ -133,6 +165,14 @@ services:
       - ${EXTERNAL_DNS}
     networks:
       - homelab
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.3'
+        reservations:
+          memory: 64M
+          cpus: '0.1'
 
 networks:
   homelab:

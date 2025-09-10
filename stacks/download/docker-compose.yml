@@ -33,6 +33,14 @@ services:
       - TZ=${TZ}
     networks:
       - homelab
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.2'
+        reservations:
+          memory: 32M
+          cpus: '0.05'
 
   # === BitTorrent Client ===
   qbittorrent:
@@ -51,6 +59,14 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.2'
 
   # === Usenet Client ===
 #  nzbget:

@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="ff99b9e8-2ebe-4f64-ba0e-2cd1f377d5ff" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stacks/download/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/stacks/download/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stacks/infrastructure/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/stacks/infrastructure/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stacks/media/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/stacks/media/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stacks/monitoring/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/stacks/monitoring/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,10 +41,10 @@
     <setting file="file://$PROJECT_DIR$/data/portainer/portainer.key" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/data/portainer/portainer.pub" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -139,6 +144,7 @@
       <workItem from="1756342200262" duration="803000" />
       <workItem from="1756343297049" duration="565000" />
       <workItem from="1756863274270" duration="4118000" />
+      <workItem from="1757498373268" duration="1599000" />
     </task>
     <task id="LOCAL-00001" summary="add git ignore">
       <option name="closed" value="true" />
@@ -212,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756864193425</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fix: remove some service temporary before perf optimisation update">
+      <option name="closed" value="true" />
+      <created>1757498519186</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1757498519186</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,7 +256,8 @@
     <MESSAGE value="feat: add backup service" />
     <MESSAGE value="chore: add more security to backupservice" />
     <MESSAGE value="feat: add navidrome &amp; lidarr for music streaming &amp; acquisition service" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add navidrome &amp; lidarr for music streaming &amp; acquisition service" />
+    <MESSAGE value="fix: remove some service temporary before perf optimisation update" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: remove some service temporary before perf optimisation update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

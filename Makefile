@@ -245,6 +245,133 @@ logs-service:
 	@echo "$(GREEN)📋 Logs for service $(SERVICE):$(NC)"
 	@docker compose logs -f $(SERVICE)
 
+# Monitor resource usage with limits
+resource-check:
+	@echo "$(GREEN)📊 Resource usage vs limits:$(NC)"
+	@docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}"
+	@echo ""
+	@echo "$(YELLOW)Top memory consumers:$(NC)"
+	@docker stats --no-stream --format "{{.Name}}\t{{.MemUsage}}" | sort -k2 -hr | head -5
+
+# Check if any container is hitting limits
+limits-check:
+	@echo "$(GREEN)🚨 Checking for resource limit violations:$(NC)"
+	@docker events --filter event=oom --since 1h --until now || echo "No OOM events in last hour"
+
+# Enable Docker resource limits (requires swarm mode or cgroup v2)
+enable-limits:
+	@echo "$(GREEN)🔧 Enabling Docker resource management...$(NC)"
+	@if ! docker info | grep -q "Swarm: active"; then \
+		echo "$(YELLOW)Initializing Docker Swarm for resource limits...$(NC)"; \
+		docker swarm init --advertise-addr 127.0.0.1 2>/dev/null || echo "Swarm already initialized"; \
+	fi
+	@echo "$(GREEN)✅ Resource limits enabled!$(NC)"
+
+# Disable Docker swarm (if only used for resource limits)
+disable-limits:
+	@echo "$(YELLOW)⚠️ Disabling Docker Swarm...$(NC)"
+	@docker swarm leave --force 2>/dev/null || echo "Not in swarm mode"
+	@echo "$(GREEN)✅ Swarm mode disabled$(NC)"
+
+# Scale down services for maintenance/night mode
+scale-down:
+	@echo "$(GREEN)🌙 Scaling down to minimal resources...$(NC)"
+	@echo "$(YELLOW)Stopping non-essential services...$(NC)"
+	@docker compose stop jellyseerr navidrome duplicati 2>/dev/null || echo "Some services already stopped"
+	@echo "$(YELLOW)Reducing container limits...$(NC)"
+	@docker update --memory=256m --cpus=0.5 jellyfin 2>/dev/null || echo "Cannot update limits (normal without swarm)"
+	@echo "$(GREEN)✅ Scaled down for minimal resource usage$(NC)"
+
+# Scale up services for full performance
+scale-up:
+	@echo "$(GREEN)🚀 Scaling up to full performance...$(NC)"
+	@echo "$(YELLOW)Starting all services...$(NC)"
+	@docker compose up -d
+	@echo "$(YELLOW)Restoring full resource limits...$(NC)"
+	@docker update --memory=2g --cpus=2.0 jellyfin 2>/dev/null || echo "Cannot update limits (normal without swarm)"
+	@echo "$(GREEN)✅ Scaled up to full performance$(NC)"
+
+# Emergency resource management
+emergency-resources:
+	@echo "$(RED)🚨 EMERGENCY: Freeing up system resources...$(NC)"
+	@echo "$(YELLOW)Stopping download services...$(NC)"
+	@docker compose stop qbittorrent nzbget sonarr radarr lidarr prowlarr 2>/dev/null || true
+	@echo "$(YELLOW)Stopping media services...$(NC)"
+	@docker compose stop jellyfin jellyseerr navidrome 2>/dev/null || true
+	@echo "$(YELLOW)Keeping only essential services...$(NC)"
+	@docker system prune -f
+	@echo "$(GREEN)✅ Emergency resource cleanup completed$(NC)"
+	@echo "$(YELLOW)💡 Run 'make resource-check' to verify system state$(NC)"
+
+# Set up resource monitoring alerts
+setup-alerts:
+	@echo "$(GREEN)📊 Setting up resource monitoring...$(NC)"
+	@echo "Creating resource monitoring script..."
+	@cat > resource-monitor.sh << 'EOF'
+#!/bin/bash
+# Resource monitoring script
+MEMORY_THRESHOLD=85
+CPU_THRESHOLD=90
+DISK_THRESHOLD=90
+
+check_resources() {
+    # Check memory usage
+    MEMORY_USAGE=$$(free | grep '^Mem:' | awk '{printf "%.0f", $$3/$$2 * 100}')
+    if [ $$MEMORY_USAGE -gt $$MEMORY_THRESHOLD ]; then
+        echo "⚠️ HIGH MEMORY USAGE: $${MEMORY_USAGE}%"
+        docker stats --no-stream --format "{{.Name}}: {{.MemPerc}}" | head -5
+    fi
+    
+    # Check disk usage
+    DISK_USAGE=$$(df / | tail -1 | awk '{print $$5}' | sed 's/%//')
+    if [ $$DISK_USAGE -gt $$DISK_THRESHOLD ]; then
+        echo "⚠️ HIGH DISK USAGE: $${DISK_USAGE}%"
+    fi
+    
+    # Check for OOM events
+    if dmesg | tail -50 | grep -q "Out of memory"; then
+        echo "🚨 OOM EVENT DETECTED!"
+    fi
+}
+
+check_resources
+EOF
+	@chmod +x resource-monitor.sh
+	@echo "$(GREEN)✅ Resource monitor created: ./resource-monitor.sh$(NC)"
+	@echo "$(YELLOW)💡 Add to crontab: */5 * * * * /path/to/resource-monitor.sh$(NC)"
+
+# Resource usage report
+resource-report:
+	@echo "$(GREEN)📋 Comprehensive Resource Report$(NC)"
+	@echo "Generated: $$(date)"
+	@echo ""
+	@echo "$(YELLOW)=== SYSTEM OVERVIEW ===$(NC)"
+	@echo "CPU Cores: $$(nproc)"
+	@echo "Total Memory: $$(free -h | grep '^Mem:' | awk '{print $$2}')"
+	@echo "Available Memory: $$(free -h | grep '^Mem:' | awk '{print $$7}')"
+	@echo "System Load: $$(uptime | awk -F'load average:' '{print $$2}')"
+	@echo ""
+	@echo "$(YELLOW)=== DOCKER OVERVIEW ===$(NC)"
+	@echo "Running Containers: $$(docker ps --format '{{.Names}}' | wc -l)"
+	@echo "Total Images: $$(docker images -q | wc -l)"
+	@echo "Docker Root Dir Size: $$(du -sh /var/lib/docker 2>/dev/null | cut -f1 || echo 'N/A')"
+	@echo ""
+	@echo "$(YELLOW)=== CONTAINER RESOURCES ===$(NC)"
+	@docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}"
+	@echo ""
+	@echo "$(YELLOW)=== STORAGE USAGE ===$(NC)"
+	@echo "Data directory: $$(du -sh data/ 2>/dev/null | cut -f1 || echo 'N/A')"
+	@echo "Storage directory: $$(du -sh storage/ 2>/dev/null | cut -f1 || echo 'N/A')"
+	@echo "Docker volumes: $$(docker system df | grep 'Local Volumes' | awk '{print $$3}' || echo 'N/A')"
+	@echo ""
+	@echo "$(YELLOW)=== RECOMMENDATIONS ===$(NC)"
+	@./resource-monitor.sh 2>/dev/null || echo "Run 'make setup-alerts' first"
+
+# Real-time resource monitoring dashboard (requires watch command)
+watch-resources:
+	@echo "$(GREEN)📊 Real-time resource monitoring (Press Ctrl+C to stop)$(NC)"
+	@echo "$(YELLOW)Starting resource monitoring dashboard...$(NC)"
+	@watch -n 2 'echo "=== HOMELAB RESOURCE MONITOR ===" && echo "" && echo "System:" && free -h && echo "" && echo "Load:" && uptime && echo "" && echo "Containers:" && docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" | head -10'	
 # =============================================================================
 # Ordered startup/shutdown
 # =============================================================================
