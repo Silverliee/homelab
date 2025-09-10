@@ -54,22 +54,22 @@ services:
       - WATCHTOWER_CLEANUP=true  # Remove last image version
     
   # === Backup Service ===
-  duplicati:
-    image: linuxserver/duplicati:latest
-    container_name: duplicati
-    restart: unless-stopped
-    ports:
-      - "8200:8200"
-    volumes:
-      - ${DATA_PATH}/duplicati:/config
-      - ${STORAGE_PATH}:/source/storage:ro
-      - ${DATA_PATH}:/source/data:ro
-      - ./backups:/backups 
-    environment:
-      SETTINGS_ENCRYPTION_KEY: ${DUPLICATI_ENCRYPTION_KEY}
-      DUPLICATI__WEBSERVICE_PASSWORD: ${DUPLICATI_WEBSERVICE_PASSWORD}
-    networks:
-      - homelab
+#  duplicati:
+#    image: linuxserver/duplicati:latest
+#    container_name: duplicati
+#    restart: unless-stopped
+#    ports:
+#      - "8200:8200"
+#    volumes:
+#      - ${DATA_PATH}/duplicati:/config
+#      - ${STORAGE_PATH}:/source/storage:ro
+#      - ${DATA_PATH}:/source/data:ro
+#      - ./backups:/backups 
+#    environment:
+#      SETTINGS_ENCRYPTION_KEY: ${DUPLICATI_ENCRYPTION_KEY}
+#      DUPLICATI__WEBSERVICE_PASSWORD: ${DUPLICATI_WEBSERVICE_PASSWORD}
+#    networks:
+#      - homelab
 
   # === CloudFlare Solver ===
   flaresolverr:

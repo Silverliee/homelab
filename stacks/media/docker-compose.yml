@@ -24,17 +24,17 @@ services:
       - homelab
     
   # === Music Streaming Server ===
-  navidrome:
-    image: deluan/navidrome:latest
-    container_name: navidrome
-    restart: unless-stopped
-    ports:
-      - "4533:4533"
-    volumes:
-      - ${DATA_PATH}/navidrome:/data
-      - ${STORAGE_PATH}/media/music:/music:ro
-    networks:
-      - homelab
+#  navidrome:
+#    image: deluan/navidrome:latest
+#    container_name: navidrome
+#    restart: unless-stopped
+#    ports:
+#      - "4533:4533"
+#    volumes:
+#      - ${DATA_PATH}/navidrome:/data
+#      - ${STORAGE_PATH}/media/music:/music:ro
+#    networks:
+#      - homelab
   
   # === Media Server ===
   jellyfin:
@@ -97,24 +97,24 @@ services:
       - homelab
   
   # === Music Management ===
-  lidarr:
-    image: linuxserver/lidarr:latest
-    container_name: lidarr
-    restart: unless-stopped
-    ports:
-      - "8686:8686"
-    volumes:
-      - ${DATA_PATH}/lidarr:/config
-      - ${STORAGE_PATH}/media/music:/music
-      - ${STORAGE_PATH}/downloads:/downloads
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    dns:
-      - ${EXTERNAL_DNS}
-    networks:
-      - homelab
+#  lidarr:
+#    image: linuxserver/lidarr:latest
+#    container_name: lidarr
+#    restart: unless-stopped
+#    ports:
+#      - "8686:8686"
+#    volumes:
+#      - ${DATA_PATH}/lidarr:/config
+#      - ${STORAGE_PATH}/media/music:/music
+#      - ${STORAGE_PATH}/downloads:/downloads
+#    environment:
+#      - PUID=${PUID}
+#      - PGID=${PGID}
+#      - TZ=${TZ}
+#    dns:
+#      - ${EXTERNAL_DNS}
+#    networks:
+#      - homelab
 
   # === Indexer Management ===
   prowlarr:
