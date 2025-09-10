@@ -51,7 +51,9 @@ services:
     restart: unless-stopped
     ports:
       - "8096:8096"
+    privileged: true
     volumes:
+      - /dev:/dev
       - ${DATA_PATH}/jellyfin/config:/config
       - ${DATA_PATH}/jellyfin/cache:/cache
       - ${STORAGE_PATH}/media/movies:/media/movies:ro
