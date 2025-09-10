@@ -18,7 +18,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 400M
+          memory: 1G
           cpus: '0.3'
         reservations:
           memory: 64M
