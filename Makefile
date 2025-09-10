@@ -303,42 +303,6 @@ emergency-resources:
 	@echo "$(GREEN)✅ Emergency resource cleanup completed$(NC)"
 	@echo "$(YELLOW)💡 Run 'make resource-check' to verify system state$(NC)"
 
-# Set up resource monitoring alerts
-setup-alerts:
-	@echo "$(GREEN)📊 Setting up resource monitoring...$(NC)"
-	@echo "Creating resource monitoring script..."
-	@cat > resource-monitor.sh << 'EOF'
-#!/bin/bash
-# Resource monitoring script
-MEMORY_THRESHOLD=85
-CPU_THRESHOLD=90
-DISK_THRESHOLD=90
-
-check_resources() {
-    # Check memory usage
-    MEMORY_USAGE=$$(free | grep '^Mem:' | awk '{printf "%.0f", $$3/$$2 * 100}')
-    if [ $$MEMORY_USAGE -gt $$MEMORY_THRESHOLD ]; then
-        echo "⚠️ HIGH MEMORY USAGE: $${MEMORY_USAGE}%"
-        docker stats --no-stream --format "{{.Name}}: {{.MemPerc}}" | head -5
-    fi
-    
-    # Check disk usage
-    DISK_USAGE=$$(df / | tail -1 | awk '{print $$5}' | sed 's/%//')
-    if [ $$DISK_USAGE -gt $$DISK_THRESHOLD ]; then
-        echo "⚠️ HIGH DISK USAGE: $${DISK_USAGE}%"
-    fi
-    
-    # Check for OOM events
-    if dmesg | tail -50 | grep -q "Out of memory"; then
-        echo "🚨 OOM EVENT DETECTED!"
-    fi
-}
-
-check_resources
-EOF
-	@chmod +x resource-monitor.sh
-	@echo "$(GREEN)✅ Resource monitor created: ./resource-monitor.sh$(NC)"
-	@echo "$(YELLOW)💡 Add to crontab: */5 * * * * /path/to/resource-monitor.sh$(NC)"
 
 # Resource usage report
 resource-report:
@@ -372,6 +336,7 @@ watch-resources:
 	@echo "$(GREEN)📊 Real-time resource monitoring (Press Ctrl+C to stop)$(NC)"
 	@echo "$(YELLOW)Starting resource monitoring dashboard...$(NC)"
 	@watch -n 2 'echo "=== HOMELAB RESOURCE MONITOR ===" && echo "" && echo "System:" && free -h && echo "" && echo "Load:" && uptime && echo "" && echo "Containers:" && docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" | head -10'	
+	
 # =============================================================================
 # Ordered startup/shutdown
 # =============================================================================
