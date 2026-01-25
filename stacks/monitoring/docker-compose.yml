@@ -82,43 +82,6 @@ services:
           memory: 16M
           cpus: '0.05'
 
-  push-gateway:
-    image: prom/pushgateway:latest
-    container_name: pushgateway
-    restart: unless-stopped
-    ports:
-      - "9091:9091"
-    networks:
-      - homelab
-    deploy:
-      resources:
-        limits:
-          memory: 64M
-          cpus: '0.2'
-        reservations:
-          memory: 32M
-          cpus: '0.1'
-
-  # === Container Metrics ===
-  docker-exporter:
-    image: ghcr.io/davidborzek/docker-exporter:latest
-    container_name: docker-exporter
-    restart: unless-stopped
-    ports:
-      - "9323:9323"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - homelab
-    deploy:
-      resources:
-        limits:
-          memory: 32M
-          cpus: '0.1'
-        reservations:
-          memory: 16M
-          cpus: '0.05'
-
 networks:
   homelab:
     name: homelab
