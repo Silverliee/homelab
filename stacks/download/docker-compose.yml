@@ -67,26 +67,6 @@ services:
         reservations:
           memory: 256M
           cpus: '0.2'
-
-  # === Usenet Client ===
-#  nzbget:
-#    image: linuxserver/nzbget:latest
-#    container_name: nzbget
-#    restart: unless-stopped
-#    ports:
-#      - "6789:6789"
-#    volumes:
-#      - ${DATA_PATH}/nzbget:/config
-#      - ${STORAGE_PATH}/downloads:/downloads
-#    environment:
-#      - PUID=${PUID}
-#      - PGID=${PGID}
-#      - TZ=${TZ}
-#    dns:
-#      - ${EXTERNAL_DNS}
-#    networks:
-#      - homelab
-
 networks:
   homelab:
     name: homelab

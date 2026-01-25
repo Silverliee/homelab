@@ -1,12 +1,12 @@
-# 🏠 Homelab - Modular Docker Stack
+# Homelab - Modular Docker Stack
 
 A comprehensive homelab solution with modular architecture, deployed with Docker Compose. Features automatic permissions management, multi-stack organization, and Makefile automation for optimal maintainability.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Security Disclaimer](#-security-disclaimer)
-- [Overview](#-overview)
-- [Architecture](#-architecture)
+- [Overview](#overview)
+- [Architecture](#architecture)
 - [Prerequisites](#-prerequisites)
 - [Quick Start](#-quick-start)
 - [Makefile Commands](#-makefile-commands)
@@ -24,18 +24,18 @@ A comprehensive homelab solution with modular architecture, deployed with Docker
 
 This homelab setup is intended for your private network and **should NOT be exposed to the internet** without proper security hardening. Services use default credentials and minimal security configurations.
 
-## 🎯 Overview
+## Overview
 
 This project provides a modular homelab solution featuring:
-- **🏗️ Modular Architecture**: Organized in logical stacks for easy management
-- **🔧 Automatic Setup**: Script-based initialization with proper permissions
-- **📊 Complete Monitoring**: Prometheus + Grafana observability stack
-- **🎬 Media Management**: Jellyseerr + Jellyfin + Navidrome with automated acquisition (Sonarr/Radarr/Lidarr)
-- **⬇️ Download Management**: qBittorrent + NZBGet with indexer management
-- **🌐 Reverse Proxy**: nginx-proxy-manager for unified access and load balancing
-- **⚡ Makefile Automation**: Simplified commands for all operations
+- **Modular Architecture**: Organized in logical stacks for easy management
+- **Automatic Setup**: Script-based initialization with proper permissions
+- **Complete Monitoring**: Prometheus + Grafana observability stack
+- **Media Management**: Jellyseerr + Jellyfin + Navidrome with automated acquisition (Sonarr/Radarr/Lidarr)
+- **Download Management**: qBittorrent + NZBGet with indexer management
+- **Reverse Proxy**: nginx-proxy-manager for unified access and load balancing
+- **Makefile Automation**: Simplified commands for all operations
 
-## 🏗️ Architecture
+## Architecture
 
 ### Stack Organization
 
@@ -59,16 +59,13 @@ The homelab is organized into **4 modular stacks**:
 **Media server and content management**
 - **Jellyseerr**: Media library manager
 - **Jellyfin**: Personal media streaming server
-- **Navidrome**: Music streaming server
 - **Sonarr**: Automated TV series management
 - **Radarr**: Automated movie management
-- **Lidarr**: Automated music management
 - **Prowlarr**: Indexer management and integration
 
 #### ⬇️ Download Stack
 **Download clients and management**
 - **qBittorrent**: BitTorrent client with web interface
-- **NZBGet**: Usenet/NZB download client
 
 ### Directory Structure
 
@@ -236,17 +233,14 @@ make logs-service SERVICE=jellyfin
 |-----------|------|------------------------|-------|
 | Jellyseer | 5055 | Media server manager   | Media |
 | Jellyfin  | 8096 | Media streaming server | Media |
-| Navidrome | 4533 | Music streaming server | Media |
 | Sonarr    | 8989 | TV series automation   | Media |
 | Radarr    | 7878 | Movie automation       | Media |
-| Lindarr   | 8686 | Music automation       | Media |
 | Prowlarr  | 9696 | Indexer management     | Media |
 
 ### Downloads & Acquisition
 | Service | Port | Purpose | Stack |
 |---------|------|---------|-------|
 | qBittorrent | 8082 | BitTorrent client | Download |
-| NZBGet | 6789 | Usenet client | Download |
 
 ## 📦 Installation
 
@@ -357,13 +351,10 @@ make media-up
 - **Prometheus**: http://localhost:9090 - Metrics collection
 - **Jellyseerr**: http://localhost:5055 - Media server manager
 - **Jellyfin**: http://localhost:8096 - Media streaming
-- **Navidrome**: http://localhost:4533 - Music streaming
 - **Sonarr**: http://localhost:8989 - TV series management
 - **Radarr**: http://localhost:7878 - Movie management
-- **Lidarr**: http://localhost:8686 - Music management
 - **Prowlarr**: http://localhost:9696 - Indexer management
 - **qBittorrent**: http://localhost:8082 - BitTorrent downloads
-- **NZBGet**: http://localhost:6789 - Usenet downloads
 
 ### Default Credentials
 - **Grafana**: admin/admin (change on first login)
