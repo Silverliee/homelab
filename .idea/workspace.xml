@@ -5,12 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff99b9e8-2ebe-4f64-ba0e-2cd1f377d5ff" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init-permissions.sh" beforeDir="false" afterPath="$PROJECT_DIR$/init-permissions.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stacks/download/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/stacks/download/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stacks/infrastructure/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/stacks/infrastructure/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stacks/media/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/stacks/media/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stacks/monitoring/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/stacks/monitoring/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -161,7 +155,7 @@
       <workItem from="1756863274270" duration="4118000" />
       <workItem from="1757498373268" duration="1983000" />
       <workItem from="1769352610563" duration="166000" />
-      <workItem from="1769352869310" duration="2914000" />
+      <workItem from="1769352869310" duration="3868000" />
     </task>
     <task id="LOCAL-00001" summary="add git ignore">
       <option name="closed" value="true" />
@@ -267,7 +261,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757502005284</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="infra: update docker-compose configuration and add push-gateway service">
+      <option name="closed" value="true" />
+      <created>1769355971748</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1769355971748</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,7 +302,8 @@
     <MESSAGE value="fix: remove some service temporary before perf optimisation update" />
     <MESSAGE value="infra: add ressource usage limitation" />
     <MESSAGE value="fix : missing separator Makefile" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix : missing separator Makefile" />
+    <MESSAGE value="infra: update docker-compose configuration and add push-gateway service" />
+    <option name="LAST_COMMIT_MESSAGE" value="infra: update docker-compose configuration and add push-gateway service" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
