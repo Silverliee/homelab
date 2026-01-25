@@ -53,6 +53,7 @@ The homelab is organized into **4 modular stacks**:
 - **Prometheus**: Metrics collection and storage
 - **Grafana**: Data visualization and dashboards
 - **Node Exporter**: System metrics collection
+- **cAdvisor**: Container metrics collection
 
 #### 🎬 Media Stack
 **Media server and content management**
@@ -220,11 +221,12 @@ make logs-service SERVICE=jellyfin
 | FlareSolverr | 8191 | Cloudflare solver           | Infrastructure |
 
 ### Monitoring & Observability
-| Service         | Port | Purpose | Stack |
-|-----------------|------|---------|-------|
-| Prometheus      | 9090 | Metrics collection | Monitoring |
-| Grafana         | 3000 | Data visualization | Monitoring |
-| Node Exporter   | 9100 | System metrics | Monitoring |
+| Service | Port | Purpose | Stack |
+|---------|------|---------|-------|
+| Prometheus | 9090 | Metrics collection | Monitoring |
+| Grafana | 3000 | Data visualization | Monitoring |
+| Node Exporter | 9100 | System metrics | Monitoring |
+| cAdvisor | 8081 | Container metrics | Monitoring |
 
 ### Media & Entertainment
 | Service   | Port | Purpose                | Stack |
