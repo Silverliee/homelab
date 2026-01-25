@@ -100,25 +100,14 @@ services:
           cpus: '0.1'
 
   # === Container Metrics ===
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.47.0
-    container_name: cadvisor
+  docker-exporter:
+    image: prometheusexporter/docker-exporter:latest
+    container_name: docker-exporter
     restart: unless-stopped
     ports:
-      - "8081:8080"
-    command:
-      - "--port=8081"
+      - "9323:9323"
     volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk/:/dev/disk:ro
-      - /etc/machine-id:/etc/machine-id:ro
-      - /etc/hostname:/etc/hostname:ro
-    privileged: true
-    devices:
-      - /dev/kmsg
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - homelab
     deploy:
