@@ -101,7 +101,7 @@ services:
 
   # === Container Metrics ===
   docker-exporter:
-    image: prometheusexporter/docker-exporter:latest
+    image: ghcr.io/davidborzek/docker-exporter:latest
     container_name: docker-exporter
     restart: unless-stopped
     ports:
