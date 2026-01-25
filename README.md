@@ -53,7 +53,6 @@ The homelab is organized into **4 modular stacks**:
 - **Prometheus**: Metrics collection and storage
 - **Grafana**: Data visualization and dashboards
 - **Node Exporter**: System metrics collection
-- **docker-exporter**: Container metrics collection
 
 #### 🎬 Media Stack
 **Media server and content management**
@@ -226,7 +225,6 @@ make logs-service SERVICE=jellyfin
 | Prometheus      | 9090 | Metrics collection | Monitoring |
 | Grafana         | 3000 | Data visualization | Monitoring |
 | Node Exporter   | 9100 | System metrics | Monitoring |
-| docker-exporter | 9323 | Container metrics | Monitoring |
 
 ### Media & Entertainment
 | Service   | Port | Purpose                | Stack |
